@@ -1,0 +1,56 @@
+# Node modules
+/node_modules/
+
+# Yarn PnP
+.pnp/
+/.pnp.js
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+/build/
+
+/coverage/
+
+# React & TypeScript specific
+/.idea/
+/.vscode/
+*.tsbuildinfo
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# Optional: JetBrains IDEs
+/.idea/
+
+# Editor specific
+.vscode/
+
+# Production files
+/dist/
+/out/
+
+# React native packager cache
+/packager-cache/
+
+# Next.js build output
+.next/
+
+# Optional: for React apps using Next.js, add the following if you use server-side rendering
+/.vercel/
+
+# Temporary files
+*.log
+*.tmp
