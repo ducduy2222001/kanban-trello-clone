@@ -1,0 +1,95 @@
+.logoContainer {
+  display: block;
+  position: relative;
+  flex-shrink: 0;
+  height: 30px;
+  margin-top: 0;
+}
+
+.logoContainer.logoAdjusted {
+  left: 8px;
+  transform: initial;
+}
+
+.logoContainer:hover .logoImage {
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 1280px) {
+  .responsiveLogo .logoWrapper {
+    width: 16px;
+    overflow: hidden;
+    opacity: 0.88;
+  }
+}
+
+.logoLink {
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 3px;
+}
+
+.logoLink:focus,
+.logoLink:hover {
+  background-color: var(--dynamic-button-hovered, rgba(255, 255, 255, 0.3));
+}
+
+.logoLink:focus .logoImage,
+.logoLink:hover .logoImage {
+  opacity: 0.88;
+}
+
+.logoLink .logoImage {
+  width: 75px;
+  height: 16px;
+  margin: 0;
+  padding: 8px 0;
+  opacity: 0.88;
+
+  filter: var(--dynamic-logo-filter);
+}
+
+.logoLink .logoImage:focus::before,
+.logoLink .logoImage:focus::after,
+.logoLink .logoImage:hover::before,
+.logoLink .logoImage:hover::after {
+  opacity: 0.88;
+  background-image: url(https://trello.com/assets/87e1af770a49ce8e84e3.gif);
+}
+
+.logoImage {
+  position: relative;
+  width: 80px;
+  height: 16px;
+  margin: 7px 0;
+  opacity: 0.5;
+}
+
+.logoImage::before,
+.logoImage::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://trello.com/assets/d947df93bc055849898e.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+.logoImage::after {
+  opacity: 0;
+  background-image: url(https://trello.com/assets/87e1af770a49ce8e84e3.gif);
+}
+
+.logoImage[data-loading="true"]::before {
+  opacity: 0;
+}
+
+.logoImage[data-loading="true"]::after {
+  opacity: 0.88;
+}

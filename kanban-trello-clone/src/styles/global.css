@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #172b4d;
+}
+
+code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 13px;
+  background-color: #ebecf0;
+  color: #091e42;
+  padding: 2px 4px;
+  border-radius: 3px;
+  overflow: hidden;
+  height: 100vh;
+}

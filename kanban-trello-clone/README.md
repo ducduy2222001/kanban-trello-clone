@@ -6,14 +6,12 @@ This document outlines the rules and structure for writing commit messages in th
 
 Each commit message should follow this format:
 
-- **`feat`**: A new feature or enhancement.
-- **`fix`**: A bug fix.
-- **`docs`**: Changes to documentation.
-- **`style`**: Code style changes (no functional changes).
-- **`refactor`**: Refactor code (no new features, no fixes).
-- **`test`**: Adding or updating tests.
-- **`chore`**: Miscellaneous tasks (e.g., updating dependencies).
+- **`Feat`**: A new feature or enhancement.
+- **`Fix`**: A bug fix.
+- **`Docs`**: Changes to documentation.
+- **`Style`**: Code style changes (no functional changes).
+- **`Refactor`**: Refactor code (no new features, no fixes).
 
 Example:
 
-- [feat]: add new feature
+- [Feat]: add new feature
