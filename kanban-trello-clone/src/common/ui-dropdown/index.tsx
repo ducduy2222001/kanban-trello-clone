@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Avatar,
   Box,
@@ -10,9 +11,9 @@ import {
   Popper,
   Typography,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { IUIDropdownProps } from "./types";
 import { deepOrange } from "@mui/material/colors";
+
+import { IUIDropdownProps } from "./types";
 
 const UIDropdown = (props: IUIDropdownProps) => {
   const { title, options } = props;

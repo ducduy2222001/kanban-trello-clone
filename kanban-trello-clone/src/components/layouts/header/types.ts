@@ -15,18 +15,18 @@ export enum ENameDropDownHeader {
 export const LIST_DROP_DOWN = [
   {
     key: ETypeDropDown.Workspaces,
-    text: ENameDropDownHeader.Workspaces,
+    text: ENameDropDownHeader.Workspaces
   },
   {
     key: ETypeDropDown.Recent,
-    text: ENameDropDownHeader.Recent,
+    text: ENameDropDownHeader.Recent
   },
   {
     key: ETypeDropDown.Starred,
-    text: ENameDropDownHeader.Starred,
+    text: ENameDropDownHeader.Starred
   },
   {
     key: ETypeDropDown.More,
-    text: ENameDropDownHeader.More,
-  },
+    text: ENameDropDownHeader.More
+  }
 ];

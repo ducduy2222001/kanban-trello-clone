@@ -1,0 +1,24 @@
+Thư mục build và production
+build/
+dist/
+
+# Các tệp hoặc thư mục node_modules
+node_modules/
+
+# Các file môi trường
+.env
+.env.local
+
+# Các file cấu hình Webpack hoặc tương tự (nếu không cần kiểm tra lint)
+webpack.config.js
+
+# Báo cáo coverage nếu sử dụng các công cụ như Jest
+coverage/
+
+# Các tệp được tạo tự động
+*.min.js
+*.bundle.js
+*.log
+
+# Bỏ qua file test snapshot (nếu dùng Jest)
+__snapshots__/

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import MenuList from "@mui/material/MenuList";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import { CalendarViewDayRounded, Dashboard, Home } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
-import Collapse from "./components/collapse";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+
 import { ITypeButtonIcon } from "../../../common/types-common";
+
+import Collapse from "./components/collapse";
 
 export enum EItemsSlider {
   Boards,
@@ -23,11 +25,11 @@ const ItemsSlider: ITypeButtonIcon[] = [
         sx={{
           width: "16px",
           height: "16px",
-          color: color,
+          color: color
         }}
       />
     ),
-    link: "",
+    link: ""
   },
   {
     key: EItemsSlider.Templates,
@@ -37,7 +39,7 @@ const ItemsSlider: ITypeButtonIcon[] = [
         sx={{ width: "16px", height: "16px", color: color }}
       />
     ),
-    link: "",
+    link: ""
   },
   {
     key: EItemsSlider.Home,
@@ -45,8 +47,8 @@ const ItemsSlider: ITypeButtonIcon[] = [
     icon: (color: string) => (
       <Home sx={{ width: "16px", height: "16px", color: color }} />
     ),
-    link: "",
-  },
+    link: ""
+  }
 ];
 const Slider = () => {
   const [selectedIndex, setSelectedIndex] = useState<any>(null);
@@ -61,7 +63,7 @@ const Slider = () => {
           gap: "4px",
           paddingTop: "0px",
           borderBottom: "1px solid #091e4224",
-          overflowX: "hidden",
+          overflowX: "hidden"
         }}
       >
         {ItemsSlider.map((item, index) => {
@@ -78,10 +80,10 @@ const Slider = () => {
                 padding: "6px 8px",
                 bgcolor: isSelected ? "#E9F2FF" : "",
                 "&:hover": {
-                  bgcolor: isSelected ? "#E9F2FF" : "#e5e5e5",
+                  bgcolor: isSelected ? "#E9F2FF" : "#e5e5e5"
                 },
                 cursor: "pointer",
-                gap: "10px",
+                gap: "10px"
               }}
             >
               <ListItemIcon
@@ -95,8 +97,8 @@ const Slider = () => {
 
                   "& .MuiSvgIcon-root": {
                     width: 16,
-                    height: 16,
-                  },
+                    height: 16
+                  }
                 }}
               >
                 {item.icon(color)}
@@ -107,8 +109,8 @@ const Slider = () => {
                   primary: {
                     fontSize: "14px",
                     fontWeight: 500,
-                    color: color,
-                  },
+                    color: color
+                  }
                 }}
               />
             </MenuItem>
@@ -121,7 +123,7 @@ const Slider = () => {
           gap: "4px",
           overflowY: "auto",
           overflowX: "hidden",
-          maxHeight: "400px",
+          maxHeight: "400px"
         }}
       >
         <Typography

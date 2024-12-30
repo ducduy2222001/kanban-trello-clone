@@ -1,40 +1,40 @@
 import React, { useState } from "react";
-import { Stack, IconButton, Box, Avatar } from "@mui/material";
-import { Apps } from "@mui/icons-material";
-import styles from "./index.module.scss";
-
-import { TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import {
-  NotificationsOutlined,
+import {   AddOutlined,
+Apps ,
   HelpOutline,
-  AddOutlined,
+  NotificationsOutlined
 } from "@mui/icons-material";
-import { ETypeDropDown, LIST_DROP_DOWN } from "./types";
+import SearchIcon from "@mui/icons-material/Search";
+import { Avatar,Box, IconButton, Stack , TextField } from "@mui/material";
+
 import UIDropdown from "../../../common/ui-dropdown";
+
+import { ETypeDropDown, LIST_DROP_DOWN } from "./types";
+
+import styles from "./index.module.scss";
 
 const Header = () => {
   const [optionsDropdown] = useState({
     [ETypeDropDown.Workspaces]: [
       { key: 0, text: "CAPSTONE1" },
-      { key: 1, text: "CAPSTONE2" },
+      { key: 1, text: "CAPSTONE2" }
     ],
     [ETypeDropDown.Recent]: [
       { key: 0, text: "CAPSTONE1" },
-      { key: 1, text: "CAPSTONE2" },
+      { key: 1, text: "CAPSTONE2" }
     ],
     [ETypeDropDown.Starred]: [
       { key: 0, text: "CAPSTONE1" },
-      { key: 1, text: "CAPSTONE2" },
+      { key: 1, text: "CAPSTONE2" }
     ],
     [ETypeDropDown.More]: [
       { key: 0, text: "CAPSTONE1" },
-      { key: 1, text: "CAPSTONE2" },
-    ],
+      { key: 1, text: "CAPSTONE2" }
+    ]
   });
   const newListDropDown = LIST_DROP_DOWN.map((item) => ({
     ...item,
-    options: optionsDropdown[item.key],
+    options: optionsDropdown[item.key]
   }));
 
   return (
@@ -73,8 +73,8 @@ const Header = () => {
             width: "32px",
             height: "32px",
             "&:hover": {
-              bgcolor: "#0a56c9",
-            },
+              bgcolor: "#0a56c9"
+            }
           }}
         >
           <AddOutlined sx={{ color: "#fff" }} />
@@ -89,31 +89,31 @@ const Header = () => {
             width: 200,
             "& .MuiOutlinedInput-root": {
               height: 32,
-              padding: "0 8px",
+              padding: "0 8px"
             },
             "& .MuiOutlinedInput-input": {
               padding: 0,
               "&::placeholder": {
                 fontSize: "14px",
-                color: "#888",
-              },
+                color: "#888"
+              }
             },
-            fontSize: 14,
+            fontSize: 14
           }}
           slotProps={{
             input: {
               startAdornment: (
                 <IconButton
                   sx={{
-                    padding: 0,
+                    padding: 0
                   }}
                 >
                   <SearchIcon
                     sx={{ height: 20, width: 20, paddingRight: "4px" }}
                   />
                 </IconButton>
-              ),
-            },
+              )
+            }
           }}
         />
         <IconButton
@@ -121,14 +121,14 @@ const Header = () => {
           sx={{
             height: 32,
             width: 32,
-            marginLeft: "6px",
+            marginLeft: "6px"
           }}
         >
           <NotificationsOutlined
             sx={{
               height: 23,
               width: 23,
-              transform: "rotate(45deg)",
+              transform: "rotate(45deg)"
             }}
           />
         </IconButton>
@@ -136,13 +136,13 @@ const Header = () => {
           color="inherit"
           sx={{
             height: 32,
-            width: 32,
+            width: 32
           }}
         >
           <HelpOutline
             sx={{
               height: 23,
-              width: 23,
+              width: 23
             }}
           />
         </IconButton>

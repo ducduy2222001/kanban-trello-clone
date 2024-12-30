@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import {
+  Dashboard,
+  FavoriteBorder,
+  GridView,
+  Settings,
+  SupervisorAccount,
+} from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -7,19 +15,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
-import { ECollapseSlider } from "./types";
-
-import {
-  Dashboard,
-  FavoriteBorder,
-  GridView,
-  SupervisorAccount,
-  Settings,
-} from "@mui/icons-material";
 import { deepOrange } from "@mui/material/colors";
+import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
+
 import { ITypeButtonIcon } from "../../../../../common/types-common";
-import { useNavigate } from "react-router";
+
+import { ECollapseSlider } from "./types";
 
 const ListCollapseSlider: ITypeButtonIcon[] = [
   {
@@ -90,9 +91,7 @@ const ListCollapseSlider: ITypeButtonIcon[] = [
 ];
 const Collapse = () => {
   const navigate = useNavigate();
-  const [listWorkSpaces, setListWorkSpaces] = useState([
-    { title: "capstone 1", id: "capstone1" },
-  ]);
+  const [listWorkSpaces] = useState([{ title: "capstone 1", id: "capstone1" }]);
   // call api and convert data to ListWorkSpaces
   const [selectedIndex, setSelectedIndex] = useState<any>(null);
 
