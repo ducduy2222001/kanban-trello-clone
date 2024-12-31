@@ -1,14 +1,7 @@
-{
-  "extends": ["react-app", "react-app/jest"],
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "simple-import-sort",
-    "import",
-    "@typescript-eslint"
-  ],
-  "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+module.exports = {
+  extends: ["react-app", "react-app/jest"],
+  plugins: ["react", "jsx-a11y", "simple-import-sort", "import"],
+  rules: {
     "react/jsx-one-expression-per-line": 0,
     "react/prop-types": 0,
     "react/forbid-prop-types": 0,
@@ -16,8 +9,8 @@
     "react/jsx-wrap-multilines": [
       "error",
       {
-        "declaration": false,
-        "assignment": false
+        declaration: false,
+        assignment: false
       }
     ],
     "react/jsx-filename-extension": 0,
@@ -35,7 +28,7 @@
     "simple-import-sort/imports": [
       2,
       {
-        "groups": [
+        groups: [
           [
             "^(assert|buffer|child_process|crypto|fs|http|https|os|path|stream|util|zlib)(/.*|$)"
           ],
@@ -59,7 +52,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [
+        devDependencies: [
           "site/**",
           "tests/**",
           "scripts/**",
@@ -79,11 +72,11 @@
     "comma-dangle": [
       "warn",
       {
-        "arrays": "never",
-        "objects": "never",
-        "imports": "never",
-        "exports": "never",
-        "functions": "never"
+        arrays: "never",
+        objects: "never",
+        imports: "never",
+        exports: "never",
+        functions: "never"
       }
     ],
     "import/prefer-default-export": "off",
@@ -101,4 +94,4 @@
     "@typescript-eslint/default-param-last": [0],
     "react/no-unknown-property": 0
   }
-}
+};
