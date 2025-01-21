@@ -5,15 +5,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-
-import { ITypeButtonIcon } from "../../../common/types-common";
+import { ITypeButtonIcon } from "common/types-common";
 
 import Collapse from "./components/collapse";
 
 export enum EItemsSlider {
   Boards,
   Templates,
-  Home,
+  Home
 }
 
 const ItemsSlider: ITypeButtonIcon[] = [
@@ -71,7 +70,7 @@ const Slider = () => {
           const color = isSelected ? "#0c66e4" : "#172b4d";
           return (
             <MenuItem
-              key={index}
+              key={`${index}-${self.crypto.randomUUID()}`}
               onClick={() => setSelectedIndex(index)}
               sx={{
                 borderRadius: "8px",

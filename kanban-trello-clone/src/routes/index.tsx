@@ -1,15 +1,19 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import LayoutContainer from "../components/layouts";
 
+import { routes } from "./routes";
+
 const AppRoutes: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LayoutContainer />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<LayoutContainer />}>
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Route>
+    </Routes>
   );
 };
 

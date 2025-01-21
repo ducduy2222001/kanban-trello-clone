@@ -1,5 +1,7 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
+
 import Header from "./header";
 import Slider from "./slider";
 
@@ -12,7 +14,7 @@ const LayoutContainer = () => {
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 999,
+          zIndex: 999
         }}
       >
         <Header />
@@ -23,7 +25,7 @@ const LayoutContainer = () => {
           marginTop: "48px",
           height: `calc(100vh - 48px) `,
           overflowY: "auto",
-          padding: "0 60px",
+          padding: "0 60px"
         }}
       >
         <Box
@@ -33,7 +35,7 @@ const LayoutContainer = () => {
             position: "sticky",
             maxHeight: "90%",
             top: "40px",
-            marginBottom: "40px",
+            marginBottom: "40px"
           }}
         >
           <Slider />
@@ -43,12 +45,10 @@ const LayoutContainer = () => {
             width: "calc(100% - 272px)",
             padding: "0 16px",
             height: "min-content",
-            margin: "40px 0",
+            margin: "40px 0"
           }}
         >
-          {Array.from({ length: 100 }, (_, i) => (
-            <Box key={i}>Nội dung {i}</Box>
-          ))}
+          <Outlet />
         </Box>
       </Box>
     </Box>

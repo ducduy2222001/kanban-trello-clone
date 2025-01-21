@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "routes";
 
-import LayoutContainer from "./components/layouts";
 import reportWebVitals from "./reportWebVitals";
 
 import "./styles/global.css";
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-      <LayoutContainer />
+      <AppRoutes />
     </React.StrictMode>
   </BrowserRouter>
 );

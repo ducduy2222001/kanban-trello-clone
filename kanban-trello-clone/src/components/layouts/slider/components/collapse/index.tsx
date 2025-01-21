@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {
   Dashboard,
   FavoriteBorder,
   GridView,
   Settings,
-  SupervisorAccount,
+  SupervisorAccount
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -13,12 +13,11 @@ import {
   ListItemIcon,
   ListItemText,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
-
-import { ITypeButtonIcon } from "../../../../../common/types-common";
+import { ITypeButtonIcon } from "common/types-common";
 
 import { ECollapseSlider } from "./types";
 
@@ -30,11 +29,11 @@ const ListCollapseSlider: ITypeButtonIcon[] = [
       <Dashboard
         sx={{
           width: "16px",
-          height: "16px",
+          height: "16px"
         }}
       />
     ),
-    link: (id: string) => `/${id}/boards`,
+    link: (id: string) => `/${id}/boards`
   },
   {
     key: ECollapseSlider.Highlights,
@@ -43,11 +42,11 @@ const ListCollapseSlider: ITypeButtonIcon[] = [
       <FavoriteBorder
         sx={{
           width: "16px",
-          height: "16px",
+          height: "16px"
         }}
       />
     ),
-    link: (id: string) => `/${id}/highlights`,
+    link: (id: string) => `/${id}/highlights`
   },
   {
     key: ECollapseSlider.View,
@@ -56,11 +55,11 @@ const ListCollapseSlider: ITypeButtonIcon[] = [
       <GridView
         sx={{
           width: "16px",
-          height: "16px",
+          height: "16px"
         }}
       />
     ),
-    link: (id: string) => `/${id}/views/table`,
+    link: (id: string) => `/${id}/views/table`
   },
   {
     key: ECollapseSlider.Members,
@@ -69,11 +68,11 @@ const ListCollapseSlider: ITypeButtonIcon[] = [
       <SupervisorAccount
         sx={{
           width: "16px",
-          height: "16px",
+          height: "16px"
         }}
       />
     ),
-    link: (id: string) => `/${id}/members`,
+    link: (id: string) => `/${id}/members`
   },
   {
     key: ECollapseSlider.Settings,
@@ -82,12 +81,12 @@ const ListCollapseSlider: ITypeButtonIcon[] = [
       <Settings
         sx={{
           width: "16px",
-          height: "16px",
+          height: "16px"
         }}
       />
     ),
-    link: (id: string) => `/${id}/settings`,
-  },
+    link: (id: string) => `/${id}/settings`
+  }
 ];
 const Collapse = () => {
   const navigate = useNavigate();
@@ -103,16 +102,17 @@ const Collapse = () => {
             display: "flex",
             flexDirection: "inherit",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "space-between"
           },
           "& .MuiTreeItem-iconContainer": {
             order: 2,
-            marginLeft: "auto",
-          },
+            marginLeft: "auto"
+          }
         }}
       >
         {listWorkSpaces.map((item) => (
           <TreeItem
+            key={`${item.id}-${self.crypto.randomUUID()}`}
             itemId={item.id}
             label={
               <Stack direction={"row"} alignItems={"center"}>
@@ -123,7 +123,7 @@ const Collapse = () => {
                     fontSize: "14px",
                     fontWeight: "bold",
                     height: "24px",
-                    width: "24px",
+                    width: "24px"
                   }}
                 >
                   {item.title[0]}
@@ -145,11 +145,11 @@ const Collapse = () => {
             }
             sx={{
               "& .MuiCollapse-root": {
-                paddingLeft: "0px",
+                paddingLeft: "0px"
               },
               "& .MuiTreeItem-content": {
-                height: "36px",
-              },
+                height: "36px"
+              }
             }}
           >
             {ListCollapseSlider.map((ite, index) => {
@@ -165,9 +165,9 @@ const Collapse = () => {
                       marginTop: "4px",
                       bgcolor: isSelected ? "#E9F2FF" : "",
                       "&:hover": {
-                        bgcolor: isSelected ? "#E9F2FF" : "#e5e5e5",
-                      },
-                    },
+                        bgcolor: isSelected ? "#E9F2FF" : "#e5e5e5"
+                      }
+                    }
                   }}
                   onClick={() => {
                     setSelectedIndex(index);
@@ -182,7 +182,7 @@ const Collapse = () => {
                       gap={"10px"}
                       padding={"4px 8px 4px 40px"}
                       sx={{
-                        "& .MuiTreeItem-content": { height: "32px" },
+                        "& .MuiTreeItem-content": { height: "32px" }
                       }}
                     >
                       <ListItemIcon
@@ -196,8 +196,8 @@ const Collapse = () => {
 
                           "& .MuiSvgIcon-root": {
                             width: 16,
-                            height: 16,
-                          },
+                            height: 16
+                          }
                         }}
                       >
                         {ite.icon}
@@ -208,8 +208,8 @@ const Collapse = () => {
                           primary: {
                             fontSize: "14px",
                             fontWeight: 500,
-                            color: color,
-                          },
+                            color: color
+                          }
                         }}
                       />
                     </Stack>

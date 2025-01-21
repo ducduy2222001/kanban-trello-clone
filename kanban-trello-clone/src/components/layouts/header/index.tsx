@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {   AddOutlined,
-Apps ,
+import {
+  AddOutlined,
+  Apps,
   HelpOutline,
   NotificationsOutlined
 } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar,Box, IconButton, Stack , TextField } from "@mui/material";
-
-import UIDropdown from "../../../common/ui-dropdown";
+import { Avatar, Box, IconButton, Stack, TextField } from "@mui/material";
+import UIDropdown from "common/ui-dropdown";
 
 import { ETypeDropDown, LIST_DROP_DOWN } from "./types";
 

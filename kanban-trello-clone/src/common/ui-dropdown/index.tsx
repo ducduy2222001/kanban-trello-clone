@@ -9,7 +9,7 @@ import {
   MenuList,
   Paper,
   Popper,
-  Typography,
+  Typography
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 
@@ -43,15 +43,15 @@ const UIDropdown = (props: IUIDropdownProps) => {
           boxShadow: "none",
           "&:hover": {
             boxShadow: "none",
-            bgcolor: "#e5e5e5",
+            bgcolor: "#e5e5e5"
           },
           "&:active": {
             bgcolor: "#E9F2FF",
-            color: "#0c66e4",
+            color: "#0c66e4"
           },
           ".MuiButton-icon": {
-            marginLeft: "4px",
-          },
+            marginLeft: "4px"
+          }
         }}
       >
         {title}
@@ -73,7 +73,7 @@ const UIDropdown = (props: IUIDropdownProps) => {
                       bgcolor: deepOrange[500],
                       borderRadius: "4px",
                       fontSize: "20px",
-                      fontWeight: "bold",
+                      fontWeight: "bold"
                     }}
                   >
                     {item.text[0]}
