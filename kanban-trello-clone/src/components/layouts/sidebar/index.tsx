@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CalendarViewDayRounded, Dashboard, Home } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -28,7 +29,7 @@ const ItemsSlider: ITypeButtonIcon[] = [
         }}
       />
     ),
-    link: ""
+    link: "boards"
   },
   {
     key: EItemsSlider.Templates,
@@ -38,7 +39,7 @@ const ItemsSlider: ITypeButtonIcon[] = [
         sx={{ width: "16px", height: "16px", color: color }}
       />
     ),
-    link: ""
+    link: "templates"
   },
   {
     key: EItemsSlider.Home,
@@ -46,11 +47,12 @@ const ItemsSlider: ITypeButtonIcon[] = [
     icon: (color: string) => (
       <Home sx={{ width: "16px", height: "16px", color: color }} />
     ),
-    link: ""
+    link: "home"
   }
 ];
-const Slider = () => {
+const Sidebar = () => {
   const [selectedIndex, setSelectedIndex] = useState<any>(null);
+  const navigate = useNavigate();
 
   return (
     <Stack>
@@ -71,7 +73,10 @@ const Slider = () => {
           return (
             <MenuItem
               key={`${index}-${self.crypto.randomUUID()}`}
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => {
+                setSelectedIndex(index);
+                navigate(`/${item.link}`);
+              }}
               sx={{
                 borderRadius: "8px",
                 color: color,
@@ -141,4 +146,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default Sidebar;

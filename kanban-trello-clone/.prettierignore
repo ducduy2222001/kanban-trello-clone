@@ -1,0 +1,11 @@
+node_modules
+public
+build
+out
+.prettierignore
+.gitignore
+yarn.lock
+.editorconfig
+.eslintignore
+yarn-error.log
+*.md

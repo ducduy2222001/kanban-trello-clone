@@ -120,7 +120,7 @@ const Collapse = () => {
                   sx={{
                     bgcolor: deepOrange[500],
                     borderRadius: "4px",
-                    fontSize: "14px",
+                    fontSize: "20px",
                     fontWeight: "bold",
                     height: "24px",
                     width: "24px"

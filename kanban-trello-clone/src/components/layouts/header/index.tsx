@@ -54,7 +54,7 @@ const Header = () => {
             <Apps sx={{ fontSize: 20 }} />
           </IconButton>
           <a
-            href="/"
+            href="/boards"
             className={`${styles.logoContainer} ${styles.logoLink}`}
             aria-label="Back to home"
           >

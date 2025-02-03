@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 
 import Header from "./header";
-import Slider from "./slider";
+import Sidebar from "./sidebar";
 
 const LayoutContainer = () => {
   return (
@@ -22,12 +22,14 @@ const LayoutContainer = () => {
       <Box
         sx={{
           display: "flex",
+          justifyContent: "center",
+          direction: "row",
           marginTop: "48px",
           height: `calc(100vh - 48px) `,
-          overflowY: "auto",
-          padding: "0 60px"
+          overflowY: "auto"
         }}
       >
+        {/* check điều kiện để show slider detail nữa sẽ có 2 sidebar: 1 là cái phía dưới, 2 là cái khi click vô card*/}
         <Box
           sx={{
             width: "256px",
@@ -38,11 +40,11 @@ const LayoutContainer = () => {
             marginBottom: "40px"
           }}
         >
-          <Slider />
+          <Sidebar />
         </Box>
         <Box
           sx={{
-            width: "calc(100% - 272px)",
+            width: "825px",
             padding: "0 16px",
             height: "min-content",
             margin: "40px 0"
