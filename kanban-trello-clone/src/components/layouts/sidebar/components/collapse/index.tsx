@@ -18,6 +18,7 @@ import {
 import { deepOrange } from "@mui/material/colors";
 import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
 import { ITypeButtonIcon } from "common/types-common";
+import UIAvatar from "common/ui-avatar";
 
 import { ECollapseSlider } from "./types";
 
@@ -116,31 +117,11 @@ const Collapse = () => {
             itemId={item.id}
             label={
               <Stack direction={"row"} alignItems={"center"}>
-                <Avatar
-                  sx={{
-                    bgcolor: deepOrange[500],
-                    borderRadius: "4px",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    height: "24px",
-                    width: "24px"
-                  }}
-                >
-                  {item.title[0]}
-                </Avatar>
-                <Typography
-                  flex={1}
-                  marginBottom={0}
-                  marginLeft={"12px"}
-                  overflow={"hidden"}
-                  fontSize={"14px"}
-                  fontWeight={500}
-                  textOverflow={"ellipsis"}
-                  whiteSpace={"nowrap"}
-                  textTransform={"uppercase"}
-                >
-                  {item.title}
-                </Typography>
+                <UIAvatar
+                  name={item.title}
+                  sx={{ fontWeight: 500 }}
+                  size={24}
+                />
               </Stack>
             }
             sx={{

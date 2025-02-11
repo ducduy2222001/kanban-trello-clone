@@ -13,7 +13,12 @@ import { ETypeDropDown, LIST_DROP_DOWN } from "./types";
 
 import styles from "./index.module.scss";
 
-const Header = () => {
+interface IHeaderProps {
+  blurBg: boolean;
+}
+const Header = (props: IHeaderProps) => {
+  const { blurBg } = props;
+
   const [optionsDropdown] = useState({
     [ETypeDropDown.Workspaces]: [
       { key: 0, text: "CAPSTONE1" },
@@ -41,12 +46,14 @@ const Header = () => {
     <Stack
       component={"header"}
       direction={"row"}
-      height={32}
-      padding={1}
-      borderBottom={"1px solid #0e162f29"}
-      bgcolor={"#fff"}
-      alignItems={"center"}
-      justifyContent={"space-between"}
+      sx={{
+        height: 32,
+        padding: 1,
+        borderBottom: "1px solid #0e162f29",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backdropFilter: "blur(200px)"
+      }}
     >
       <Stack direction={"row"} alignItems={"center"} gap={1}>
         <Box display={"flex"}>

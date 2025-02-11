@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import {
   Dashboard,
-  FavoriteBorder,
   GridView,
   QueryBuilder,
   Settings,
   SupervisorAccount
 } from "@mui/icons-material";
-import { Avatar, Box, Button, Grid2, Stack, Typography } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
+import { Box, Button, Grid2, Stack, Typography } from "@mui/material";
 import { ITypeButtonIcon } from "common/types-common";
+import UIAvatar from "common/ui-avatar";
 import CardBoard from "pages/main-management/common/cardBoard";
 
 interface ICard {
@@ -20,6 +19,7 @@ interface ICard {
 
 interface ILayoutCardProps {
   items: ICard[];
+  nameProject?: string;
 }
 
 interface IWorkSpace {
@@ -91,7 +91,7 @@ const ListButtonWorkSpace: ITypeButtonIcon[] = [
   }
 ];
 const LayoutCard = (props: ILayoutCardProps) => {
-  const { items } = props;
+  const { items, nameProject } = props;
   return (
     <Grid2
       container
@@ -110,7 +110,11 @@ const LayoutCard = (props: ILayoutCardProps) => {
     >
       {items.map((item) => (
         <Grid2 key={item.id}>
-          <CardBoard title={item.title} image={item.image} />
+          <CardBoard
+            title={item.title}
+            image={item.image}
+            nameProject={nameProject}
+          />
         </Grid2>
       ))}
     </Grid2>
@@ -118,7 +122,7 @@ const LayoutCard = (props: ILayoutCardProps) => {
 };
 
 const Boards = () => {
-  const [dataRecentlyViewed, setDataRecentlyViewed] = useState<ICard[]>([
+  const [dataRecentlyViewed] = useState<ICard[]>([
     {
       id: "1",
       title: "CSW SPRINT 1_CODING",
@@ -137,7 +141,7 @@ const Boards = () => {
     }
   ]);
 
-  const [dataWorkSpaceList, setDataWorkSpaceList] = useState<IWorkSpace[]>([
+  const [dataWorkSpaceList] = useState<IWorkSpace[]>([
     {
       id: "1",
       nameProject: "CAPSTONE 1",
@@ -246,30 +250,18 @@ const Boards = () => {
                 justifyContent: "space-between"
               }}
             >
-              <Stack direction={"row"} alignItems={"center"}>
-                <Avatar
-                  sx={{
-                    bgcolor: deepOrange[500],
-                    borderRadius: "4px",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    height: "32px",
-                    width: "32px"
-                  }}
-                >
-                  {item.nameProject[0]}
-                </Avatar>
-                <Typography
-                  flex={1}
-                  marginBottom={0}
-                  marginLeft={"12px"}
-                  overflow={"hidden"}
-                  fontSize={"16px"}
-                  fontWeight={700}
-                  textTransform={"uppercase"}
-                >
-                  {item.nameProject}
-                </Typography>
+              <Stack
+                direction={"row"}
+                alignItems={"center"}
+                sx={{
+                  paddingBottom: { xs: "8px", sm: "8px", md: 0, lg: 0 }
+                }}
+              >
+                <UIAvatar
+                  name={item.nameProject}
+                  sx={{ fontWeight: 700, fontSize: "16px" }}
+                  size={32}
+                />
               </Stack>
               <Stack
                 direction={"row"}
@@ -317,7 +309,7 @@ const Boards = () => {
                 ))}
               </Stack>
             </Stack>
-            <LayoutCard items={item.taskList} />
+            <LayoutCard items={item.taskList} nameProject={item.nameProject} />
           </Stack>
         ))}
       </Box>

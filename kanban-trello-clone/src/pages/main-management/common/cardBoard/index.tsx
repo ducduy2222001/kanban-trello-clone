@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { PeopleOutlineOutlined, StarBorderRounded } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 
@@ -7,12 +8,15 @@ import imageCard from "../../../../assets/images/imageCardTemplate.jpg";
 interface ICardBoardProps {
   title: string;
   image: string;
+  nameProject?: string;
 }
 
 const CardBoard = (props: ICardBoardProps) => {
-  const { title, image } = props;
+  const { title, image, nameProject } = props;
+  const navigation = useNavigate();
   return (
     <Box
+      component="button"
       sx={{
         width: "100%",
         minWidth: "0",
@@ -22,6 +26,8 @@ const CardBoard = (props: ICardBoardProps) => {
         backgroundImage: `url(${imageCard})`,
         backgroundSize: "cover",
         objectFit: "cover",
+        border: "none",
+        outline: "none",
         "&:hover .starIcon": {
           width: "18px"
         },
@@ -29,6 +35,15 @@ const CardBoard = (props: ICardBoardProps) => {
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${imageCard})`
         }
       }}
+      onClick={() =>
+        navigation(
+          `/project/${nameProject
+            ?.toLowerCase()
+            ?.trim()
+            .replace(/\s(.)/g, (match: string) => match.toUpperCase())
+            .replace(/\s/g, "")}`
+        )
+      }
     >
       <Stack
         sx={{

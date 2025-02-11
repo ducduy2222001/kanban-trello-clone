@@ -51,7 +51,7 @@ const ItemsSlider: ITypeButtonIcon[] = [
   }
 ];
 const Sidebar = () => {
-  const [selectedIndex, setSelectedIndex] = useState<any>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const navigate = useNavigate();
 
   return (

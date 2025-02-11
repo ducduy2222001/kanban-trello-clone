@@ -12,6 +12,7 @@ import {
   Typography
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
+import UIAvatar from "common/ui-avatar";
 
 import { IUIDropdownProps } from "./types";
 
@@ -68,28 +69,11 @@ const UIDropdown = (props: IUIDropdownProps) => {
             <MenuList>
               {options.map((item) => (
                 <MenuItem key={item.key} onClick={handleClose}>
-                  <Avatar
-                    sx={{
-                      bgcolor: deepOrange[500],
-                      borderRadius: "4px",
-                      fontSize: "20px",
-                      fontWeight: "bold"
-                    }}
-                  >
-                    {item.text[0]}
-                  </Avatar>
-                  <Typography
-                    flex={1}
-                    marginBottom={0}
-                    marginLeft={"12px"}
-                    overflow={"hidden"}
-                    fontSize={"14px"}
-                    fontWeight={500}
-                    textOverflow={"ellipsis"}
-                    whiteSpace={"nowrap"}
-                  >
-                    {item.text}
-                  </Typography>
+                  <UIAvatar
+                    name={item.text}
+                    size={40}
+                    sx={{ fontWeight: "500" }}
+                  />
                 </MenuItem>
               ))}
             </MenuList>
