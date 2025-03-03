@@ -62,7 +62,7 @@ const LayoutContainer = () => {
             sx={{
               flexGrow: 1,
               transition: "margin 0.3s ease-in-out",
-              width: "100%"
+              width: "calc(100% - 260px)"
             }}
           >
             <Outlet />
