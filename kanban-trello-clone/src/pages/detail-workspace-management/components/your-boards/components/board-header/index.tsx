@@ -14,7 +14,7 @@ const BoardHeader = () => {
         justifyContent: "space-between"
       }}
     >
-      sssss
+      Header
     </Stack>
   );
 };

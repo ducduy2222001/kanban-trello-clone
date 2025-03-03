@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-import ListColumn from "./list-column";
+import Column from "./column";
 
-const BoardContent = () => {
+const ListColumn = () => {
   return (
     <Box
       sx={{
@@ -11,12 +11,13 @@ const BoardContent = () => {
         flexDirection: "row",
         overflowY: "hidden",
         overflowX: "auto",
-        height: "calc(100vh - 78px)"
+        height: "calc(100vh - 78px - 50px)",
+        padding: "8px 0px"
       }}
     >
-      <ListColumn />
+      <Column />
     </Box>
   );
 };
 
-export default BoardContent;
+export default ListColumn;
