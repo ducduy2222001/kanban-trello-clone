@@ -1,8 +1,13 @@
 import { Box } from "@mui/material";
+import { ICard } from "pages/detail-workspace-management/components/your-boards/types";
 
 import CardItem from "./card";
 
-const ListCard = () => {
+interface IListCardProps {
+  cards: ICard[];
+}
+const ListCard = (props: IListCardProps) => {
+  const { cards } = props;
   return (
     <Box
       sx={{
@@ -34,15 +39,9 @@ const ListCard = () => {
         }
       }}
     >
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
+      {cards?.map((card) => (
+        <CardItem key={card?._id} cardItem={card} />
+      ))}
     </Box>
   );
 };
