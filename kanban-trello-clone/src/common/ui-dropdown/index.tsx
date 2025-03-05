@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-  Avatar,
   Box,
   Button,
   ClickAwayListener,
   MenuItem,
   MenuList,
   Paper,
-  Popper,
-  Typography
+  Popper
 } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
 import UIAvatar from "common/ui-avatar";
 
 import { IUIDropdownProps } from "./types";

@@ -5,13 +5,25 @@ import TableViewIcon from "@mui/icons-material/TableView";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 
+import { ICard } from "../../../types";
+
 import ListCard from "./list-card";
 
-const Column = () => {
+interface IColumnProps {
+  cards: ICard[];
+  titleCard: string;
+}
+
+interface IHeaderContentProps {
+  title: string;
+}
+
+const Column = (props: IColumnProps) => {
+  const { cards, titleCard } = props;
   return (
     <Box
       sx={{
-        minWidth: "290px",
+        minWidth: "272px",
         ml: 2,
         borderRadius: "15px",
         bgcolor: "#f1f2f4",
@@ -19,8 +31,8 @@ const Column = () => {
         maxHeight: "calc(100vh - 100px)"
       }}
     >
-      <HeaderContent />
-      <ListCard />
+      <HeaderContent title={titleCard} />
+      <ListCard cards={cards} />
       <FooterContent />
     </Box>
   );
@@ -28,7 +40,8 @@ const Column = () => {
 
 export default Column;
 
-const HeaderContent = () => {
+const HeaderContent = (props: IHeaderContentProps) => {
+  const { title } = props;
   return (
     <Box
       sx={{
@@ -42,7 +55,9 @@ const HeaderContent = () => {
         }
       }}
     >
-      <Typography>Header</Typography>
+      <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
+        {title}
+      </Typography>
       <Tooltip title="List action">
         <IconButton sx={{ borderRadius: "8px" }}>
           <MoreHorizIcon sx={{ fontSize: "16px" }} />

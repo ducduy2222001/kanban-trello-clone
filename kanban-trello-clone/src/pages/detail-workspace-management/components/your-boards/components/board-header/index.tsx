@@ -1,20 +1,26 @@
 import React from "react";
 import { Stack } from "@mui/material";
 
-const BoardHeader = () => {
+import { IBoard } from "../../types";
+
+interface IBoardHeaderProps {
+  boardHeader: IBoard;
+}
+const BoardHeader = (props: IBoardHeaderProps) => {
+  const { boardHeader } = props;
   return (
     <Stack
       component={"header"}
       direction={"row"}
       sx={{
-        height: 56,
+        padding: "12px 18px",
         backdropFilter: "blur(4px)",
         borderBottom: "1px solid #0e162f29",
         alignItems: "center",
         justifyContent: "space-between"
       }}
     >
-      Header
+      {boardHeader.title}
     </Stack>
   );
 };

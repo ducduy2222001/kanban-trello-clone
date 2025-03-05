@@ -7,15 +7,7 @@ import {
   Settings,
   SupervisorAccount
 } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography
-} from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
+import { Box, ListItemIcon, ListItemText, Stack } from "@mui/material";
 import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
 import { ITypeButtonIcon } from "common/types-common";
 import UIAvatar from "common/ui-avatar";
