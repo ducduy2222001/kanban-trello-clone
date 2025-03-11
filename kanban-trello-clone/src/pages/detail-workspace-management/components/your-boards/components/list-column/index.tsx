@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 
 import { mapOrder } from "utils/sort";
 
-import { ICard, IColumn } from "../../types";
+import { IColumn } from "../../types";
 
 import AddOtherColumn from "./addOtherColumn";
 import Column from "./column";
@@ -30,9 +30,9 @@ const ListColumn = (props: IBListColumnProps) => {
     >
       {columns?.map((column) => (
         <Column
+          column={column}
           key={column?._id}
           cards={handleOrderCards(column)}
-          titleCard={column?.title}
         />
       ))}
       <AddOtherColumn />

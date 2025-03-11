@@ -1,17 +1,19 @@
 import React from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import TableViewIcon from "@mui/icons-material/TableView";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 
-import { ICard } from "../../../types";
+import { ICard, IColumn } from "../../../types";
 
 import ListCard from "./list-card";
 
 interface IColumnProps {
   cards: ICard[];
-  titleCard: string;
+  column: IColumn;
 }
 
 interface IHeaderContentProps {
@@ -19,9 +21,20 @@ interface IHeaderContentProps {
 }
 
 const Column = (props: IColumnProps) => {
-  const { cards, titleCard } = props;
+  const { cards, column } = props;
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: column._id, data: { ...column } });
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    transition
+  };
   return (
     <Box
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
       sx={{
         minWidth: "272px",
         ml: 2,
@@ -31,7 +44,7 @@ const Column = (props: IColumnProps) => {
         maxHeight: "calc(100vh - 100px)"
       }}
     >
-      <HeaderContent title={titleCard} />
+      <HeaderContent title={column.title} />
       <ListCard cards={cards} />
       <FooterContent />
     </Box>
