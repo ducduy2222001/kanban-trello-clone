@@ -7,12 +7,13 @@ import TableViewIcon from "@mui/icons-material/TableView";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 
-import { ICard, IColumn } from "../../../types";
+import { mapOrder } from "utils/sort";
+
+import { IColumn } from "../../../types";
 
 import ListCard from "./list-card";
 
 interface IColumnProps {
-  cards: ICard[];
   column: IColumn;
 }
 
@@ -21,33 +22,43 @@ interface IHeaderContentProps {
 }
 
 const Column = (props: IColumnProps) => {
-  const { cards, column } = props;
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: column._id, data: { ...column } });
+  const { column } = props;
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: column._id, data: { ...column } });
+
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, "_id");
 
   const style = {
     transform: CSS.Translate.toString(transform),
-    transition
+    transition,
+    height: "100%",
+    opacity: isDragging ? 0.5 : undefined
   };
+
   return (
-    <Box
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      sx={{
-        minWidth: "272px",
-        ml: 2,
-        borderRadius: "15px",
-        bgcolor: "#f1f2f4",
-        height: "fit-content",
-        maxHeight: "calc(100vh - 100px)"
-      }}
-    >
-      <HeaderContent title={column.title} />
-      <ListCard cards={cards} />
-      <FooterContent />
-    </Box>
+    <div ref={setNodeRef} style={style} {...attributes}>
+      <Box
+        {...listeners}
+        sx={{
+          minWidth: "272px",
+          ml: 2,
+          borderRadius: "15px",
+          bgcolor: "#f1f2f4",
+          height: "fit-content",
+          maxHeight: "calc(100vh - 100px)"
+        }}
+      >
+        <HeaderContent title={column.title} />
+        <ListCard cards={orderedCards} />
+        <FooterContent />
+      </Box>
+    </div>
   );
 };
 

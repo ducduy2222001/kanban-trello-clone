@@ -1,7 +1,9 @@
 import React from "react";
+import {
+  horizontalListSortingStrategy,
+  SortableContext
+} from "@dnd-kit/sortable";
 import { Box } from "@mui/material";
-
-import { mapOrder } from "utils/sort";
 
 import { IColumn } from "../../types";
 
@@ -14,29 +16,28 @@ interface IBListColumnProps {
 
 const ListColumn = (props: IBListColumnProps) => {
   const { columns } = props;
-  const handleOrderCards = (column: IColumn) => {
-    return mapOrder(column?.cards, column?.cardOrderIds, "_id");
-  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        overflowY: "hidden",
-        overflowX: "auto",
-        height: "calc(100vh - 78px - 50px)",
-        padding: "8px 0px"
-      }}
+    <SortableContext
+      items={columns.map((column) => column._id)}
+      strategy={horizontalListSortingStrategy}
     >
-      {columns?.map((column) => (
-        <Column
-          column={column}
-          key={column?._id}
-          cards={handleOrderCards(column)}
-        />
-      ))}
-      <AddOtherColumn />
-    </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          overflowX: "auto",
+          overflowY: "hidden",
+          height: "calc(100vh - 78px - 50px)",
+          padding: "8px 0px"
+        }}
+      >
+        {columns?.map((column) => (
+          <Column column={column} key={column?._id} />
+        ))}
+        <AddOtherColumn />
+      </Box>
+    </SortableContext>
   );
 };
 

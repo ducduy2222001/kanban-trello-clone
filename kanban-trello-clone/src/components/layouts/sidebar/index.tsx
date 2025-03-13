@@ -72,7 +72,7 @@ const Sidebar = () => {
           const color = isSelected ? "#0c66e4" : "#172b4d";
           return (
             <MenuItem
-              key={`${index}-${self.crypto.randomUUID()}`}
+              key={`${index}-${window.crypto.randomUUID()}`}
               onClick={() => {
                 setSelectedIndex(index);
                 navigate(`/${item.link}`);

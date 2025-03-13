@@ -105,7 +105,7 @@ const Collapse = () => {
       >
         {listWorkSpaces.map((item) => (
           <TreeItem
-            key={`${item.id}-${self.crypto.randomUUID()}`}
+            key={`${item.id}-${window.crypto.randomUUID()}`}
             itemId={item.id}
             label={
               <Stack direction={"row"} alignItems={"center"}>
