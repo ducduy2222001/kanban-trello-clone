@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  Active,
+  closestCorners,
   defaultDropAnimationSideEffects,
   DndContext,
   DragEndEvent,
   DragOverEvent,
   DragOverlay,
   DragStartEvent,
+  getFirstCollision,
   MouseSensor,
+  Over,
   PointerSensor,
+  pointerWithin,
   TouchSensor,
+  UniqueIdentifier,
   useSensor,
   useSensors
 } from "@dnd-kit/core";
@@ -41,6 +47,11 @@ const BoardContent = (props: IBoardContentProps) => {
     null
   );
   const [activeDragItemData, setActiveDragItemData] = useState<any>(null);
+  const [oldColumnWhenDaraggingCard, setOldColumnWhenDaraggingCard] =
+    useState<IColumn | null>(null);
+
+  // Điểm va chạm cuối cùng trước đó
+  const lastOverId = useRef<UniqueIdentifier | null>(null);
 
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 }
@@ -60,6 +71,77 @@ const BoardContent = (props: IBoardContentProps) => {
     );
   };
 
+  const moveCardBetweeDifferentColumns = (
+    overColumn: IColumn,
+    overCardId: UniqueIdentifier,
+    active: Active,
+    over: Over,
+    activeColumn: IColumn,
+    activeDraggingCardId: UniqueIdentifier,
+    activeDraggingCardData: ICard
+  ) => {
+    setOrderColumnsState((prevColumn) => {
+      const overCardIndex = overColumn?.cards?.findIndex(
+        (card) => card._id === overCardId
+      );
+
+      // logic add item both 2 column
+      const isBelowOverItem =
+        active.rect.current.translated &&
+        active.rect.current.translated.top > over.rect.top + over.rect.height;
+      const modifier = isBelowOverItem ? 1 : 0;
+      let newCardIndex =
+        overCardIndex >= 0
+          ? overCardIndex + modifier
+          : overColumn?.cards?.length + 1;
+      const nextColumns = _.cloneDeep(prevColumn);
+      const nextActiveColumn = nextColumns.find(
+        (column) => column._id === activeColumn._id
+      );
+      const nextOverColumn = nextColumns.find(
+        (column) => column._id === overColumn._id
+      );
+
+      // column old
+      if (nextActiveColumn) {
+        nextActiveColumn.cards = nextActiveColumn.cards.filter(
+          (card) => card._id !== activeDraggingCardId
+        );
+
+        nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(
+          (card) => card._id
+        );
+      }
+
+      // column new
+      if (nextOverColumn) {
+        // kiểm tra card đang kéo thả có tồn tại ở overColumn chưa, nếu có thì cần xóa nó trước
+        nextOverColumn.cards = nextOverColumn.cards.filter(
+          (card) => card._id !== activeDraggingCardId
+        );
+
+        // cập nhật lại chuẩn dữ liệu columnId trong card sau khi kéo card giữa 2 column khác nhau
+        const rebuild_activeDraggingCardData = {
+          ...activeDraggingCardData,
+          columnId: nextOverColumn?._id
+        };
+
+        // tiếp theo là thêm card đang kéo vào overcolumn theo vị trí index mới
+        nextOverColumn.cards = [
+          ...nextOverColumn.cards.slice(0, newCardIndex),
+          rebuild_activeDraggingCardData,
+          ...nextOverColumn.cards.slice(newCardIndex)
+        ];
+
+        // cập nhật lại mảng cardOrderIds cho chuẩn dữ liệu
+        nextOverColumn.cardOrderIds = nextOverColumn.cards.map(
+          (card) => card._id
+        );
+      }
+      return nextColumns;
+    });
+  };
+
   const handeDragStart = (event: DragStartEvent) => {
     if (event) {
       setActiveDragItemId(event?.active?.id as string);
@@ -69,11 +151,16 @@ const BoardContent = (props: IBoardContentProps) => {
           : EActiveDragItemType.Column
       );
       setActiveDragItemData(event?.active?.data?.current);
+
+      if (event?.active?.data?.current?.columnId) {
+        setOldColumnWhenDaraggingCard(
+          findColumnByCardId(event?.active?.id as string) || null
+        );
+      }
     }
   };
 
   const handleDragOver = (event: DragOverEvent) => {
-    console.log("🚀 ~ handleDragOver ~ event:", event);
     const { active, over } = event;
     if (activeDragItemType === EActiveDragItemType.Column || !over || !active)
       return;
@@ -91,78 +178,99 @@ const BoardContent = (props: IBoardContentProps) => {
     if (!activeColumn || !overColumn) return;
 
     if (activeColumn._id !== overColumn._id) {
-      setOrderColumnsState((prevColumn) => {
-        const overCardIndex = overColumn?.cards?.findIndex(
-          (card) => card._id === overCardId
-        );
-
-        // logic add item both 2 column
-        const isBelowOverItem =
-          active.rect.current.translated &&
-          active.rect.current.translated.top > over.rect.top + over.rect.height;
-        const modifier = isBelowOverItem ? 1 : 0;
-        let newCardIndex =
-          overCardIndex >= 0
-            ? overCardIndex + modifier
-            : overColumn?.cards?.length + 1;
-        const nextColumns = _.cloneDeep(prevColumn);
-        const nextActiveColumn = nextColumns.find(
-          (column) => column._id === activeColumn._id
-        );
-        const nextOverColumn = nextColumns.find(
-          (column) => column._id === overColumn._id
-        );
-
-        // column old
-        if (nextActiveColumn) {
-          nextActiveColumn.cards = nextActiveColumn.cards.filter(
-            (card) => card._id !== activeDraggingCardId
-          );
-
-          nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(
-            (card) => card._id
-          );
-        }
-
-        // column new
-        if (nextOverColumn) {
-          nextOverColumn.cards = nextOverColumn.cards.filter(
-            (card) => card._id !== activeDraggingCardId
-          );
-
-          nextOverColumn.cards = [
-            ...nextOverColumn.cards.slice(0, newCardIndex),
-            activeDraggingCardData as ICard,
-            ...nextOverColumn.cards.slice(newCardIndex)
-          ];
-
-          nextOverColumn.cardOrderIds = nextOverColumn.cards.map(
-            (card) => card._id
-          );
-        }
-        return nextColumns;
-      });
+      moveCardBetweeDifferentColumns(
+        overColumn,
+        overCardId,
+        active,
+        over,
+        activeColumn,
+        activeDraggingCardId,
+        activeDraggingCardData as ICard
+      );
     }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id !== over?.id) {
-      const orderIndex = orderColumnsState.findIndex(
+
+    if (!active || !over) return;
+
+    if (activeDragItemType === EActiveDragItemType.Card) {
+      const {
+        id: activeDraggingCardId,
+        data: { current: activeDraggingCardData }
+      } = active;
+
+      const { id: overCardId } = over;
+
+      const activeColumn = findColumnByCardId(activeDraggingCardId as string);
+      const overColumn = findColumnByCardId(overCardId as string);
+
+      if (!activeColumn || !overColumn) return;
+
+      if (oldColumnWhenDaraggingCard?._id !== overColumn._id) {
+        //kéo thả card giữa 2 column
+        moveCardBetweeDifferentColumns(
+          overColumn,
+          overCardId,
+          active,
+          over,
+          activeColumn,
+          activeDraggingCardId,
+          activeDraggingCardData as ICard
+        );
+      } else {
+        const orderCardIndex = oldColumnWhenDaraggingCard?.cards?.findIndex(
+          (c) => c._id === activeDragItemId
+        );
+        const newCardIndex = overColumn?.cards?.findIndex(
+          (c) => c._id === overCardId
+        );
+
+        const dndOrderedCard = arrayMove(
+          oldColumnWhenDaraggingCard?.cards,
+          orderCardIndex,
+          newCardIndex
+        );
+        setOrderColumnsState((prev) => {
+          const nextColumns = _.cloneDeep(prev);
+          const targetColumn = nextColumns?.find(
+            (column) => column._id === overColumn._id
+          );
+          if (targetColumn) {
+            targetColumn.cards = dndOrderedCard;
+            targetColumn.cardOrderIds = dndOrderedCard?.map((card) => card._id);
+          }
+
+          return nextColumns;
+        });
+      }
+    }
+
+    if (
+      activeDragItemType === EActiveDragItemType.Column &&
+      active.id !== over?.id
+    ) {
+      const orderCardIndex = orderColumnsState.findIndex(
         (c) => c._id === active?.id
       );
-      const newIndex = orderColumnsState.findIndex((c) => c._id === over?.id);
+      const newColumnIndex = orderColumnsState.findIndex(
+        (c) => c._id === over?.id
+      );
 
       const dndOrderedColumns = arrayMove(
         orderColumnsState,
-        orderIndex,
-        newIndex
+        orderCardIndex,
+        newColumnIndex
       );
       setOrderColumnsState(dndOrderedColumns);
     }
+
+    //reset
     setActiveDragItemId(null);
     setActiveDragItemType(null);
     setActiveDragItemData(null);
+    setOldColumnWhenDaraggingCard(null);
   };
 
   useEffect(() => {
@@ -180,12 +288,53 @@ const BoardContent = (props: IBoardContentProps) => {
     })
   };
 
+  // Because the libary have issue so we need custom
+  const collisionDetectionStrategy = useCallback(
+    (args: any) => {
+      if (activeDragItemType === EActiveDragItemType.Column) {
+        return closestCorners({ ...args });
+      }
+
+      const pointerCollistions = pointerWithin(args);
+      if (!pointerCollistions) return [];
+      // const intersections = !!pointerCollistions?.length
+      //   ? pointerCollistions
+      //   : rectIntersection(args);
+
+      let overId = getFirstCollision(pointerCollistions, "id");
+      if (overId) {
+        const checkColumn = orderColumnsState.find(
+          (column) => column._id === overId
+        );
+        if (checkColumn) {
+          overId = closestCorners({
+            ...args,
+            droppableContainers: args.droppableContainers.filter(
+              (container: any) => {
+                return (
+                  container._id !== overId &&
+                  checkColumn?.cardOrderIds?.includes(container._id)
+                );
+              }
+            )
+          })[0]?.id;
+        }
+
+        lastOverId.current = overId;
+        return [{ id: overId }];
+      }
+      return lastOverId.current ? [{ id: lastOverId.current }] : [];
+    },
+    [activeDragItemType, orderColumnsState]
+  );
+
   return (
     <DndContext
       sensors={sensors}
       onDragStart={handeDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
+      collisionDetection={collisionDetectionStrategy}
     >
       <ListColumn columns={orderColumnsState} />;
       <DragOverlay dropAnimation={dropAnimation}>
