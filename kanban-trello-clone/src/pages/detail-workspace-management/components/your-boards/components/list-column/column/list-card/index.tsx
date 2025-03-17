@@ -2,7 +2,7 @@ import {
   SortableContext,
   verticalListSortingStrategy
 } from "@dnd-kit/sortable";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { ICard } from "pages/detail-workspace-management/components/your-boards/types";
 
 import CardItem from "./card";
