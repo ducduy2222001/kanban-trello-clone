@@ -21,6 +21,7 @@ import {
 import { arrayMove } from "@dnd-kit/sortable";
 import _ from "lodash";
 
+import { generatePlaceholderCard } from "utils/formatters";
 import { mapOrder } from "utils/sort";
 
 import ListColumn from "../list-column";
@@ -108,6 +109,11 @@ const BoardContent = (props: IBoardContentProps) => {
           (card) => card._id !== activeDraggingCardId
         );
 
+        //Thêm placeholder Card nếu column rỗng
+        if (_.isEmpty(nextActiveColumn.cards)) {
+          nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)];
+        }
+
         nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(
           (card) => card._id
         );
@@ -132,6 +138,11 @@ const BoardContent = (props: IBoardContentProps) => {
           rebuild_activeDraggingCardData,
           ...nextOverColumn.cards.slice(newCardIndex)
         ];
+
+        //Xóa cái placeholder card idd nếu nó đang tồn tại
+        nextOverColumn.cards = nextOverColumn.cards.filter(
+          (card) => !card.FE_Placeholder
+        );
 
         // cập nhật lại mảng cardOrderIds cho chuẩn dữ liệu
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(
@@ -161,9 +172,11 @@ const BoardContent = (props: IBoardContentProps) => {
   };
 
   const handleDragOver = (event: DragOverEvent) => {
+    if (activeDragItemType === EActiveDragItemType.Column) return;
+
     const { active, over } = event;
-    if (activeDragItemType === EActiveDragItemType.Column || !over || !active)
-      return;
+
+    if (!active || !over) return;
 
     const {
       id: activeDraggingCardId,
@@ -297,9 +310,6 @@ const BoardContent = (props: IBoardContentProps) => {
 
       const pointerCollistions = pointerWithin(args);
       if (!pointerCollistions) return [];
-      // const intersections = !!pointerCollistions?.length
-      //   ? pointerCollistions
-      //   : rectIntersection(args);
 
       let overId = getFirstCollision(pointerCollistions, "id");
       if (overId) {
@@ -338,6 +348,7 @@ const BoardContent = (props: IBoardContentProps) => {
     >
       <ListColumn columns={orderColumnsState} />;
       <DragOverlay dropAnimation={dropAnimation}>
+        {(!activeDragItemId || !activeDragItemType) && null}
         {activeDragItemId &&
         activeDragItemType === EActiveDragItemType.Column ? (
           <Column column={activeDragItemData} />

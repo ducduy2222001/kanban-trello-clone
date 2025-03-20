@@ -25,6 +25,7 @@ const CardItem = (props: ICardItemProps) => {
     transition,
     opacity: isDragging ? "0.5" : undefined
   };
+
   return (
     <Card
       ref={setNodeRef}
@@ -32,10 +33,13 @@ const CardItem = (props: ICardItemProps) => {
       {...attributes}
       {...listeners}
       sx={{
+        cursor: "pointer",
         maxWidth: 272,
         overflow: "unset",
         margin: "0 4px 8px 8px",
-        boxShadow: "0px 1px 1px #091e4240"
+        boxShadow: cardItem?.FE_Placeholder ? "unset" : "0px 1px 1px #091e4240",
+        bgcolor: cardItem?.FE_Placeholder ? "#f1f2f4" : "none",
+        pointerEvents: cardItem?.FE_Placeholder ? "none" : "unset"
       }}
     >
       {cardItem?.cover && (
@@ -45,8 +49,22 @@ const CardItem = (props: ICardItemProps) => {
           title={cardItem.description}
         />
       )}
-      <CardContent>
-        <Typography>{cardItem?.title}</Typography>
+      <CardContent
+        sx={{
+          "&.MuiCardContent-root": {
+            paddingBottom: "16px"
+          }
+        }}
+      >
+        {cardItem?.FE_Placeholder ? (
+          <Typography
+            sx={{ fontStyle: "italic", fontWeight: 400, color: "#575757" }}
+          >
+            No cards here
+          </Typography>
+        ) : (
+          <Typography>{cardItem?.title}</Typography>
+        )}
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
           {cardItem?.description}
         </Typography>
