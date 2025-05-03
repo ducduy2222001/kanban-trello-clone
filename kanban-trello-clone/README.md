@@ -11,6 +11,7 @@ Each commit message should follow this format:
 - **`Docs`**: Changes to documentation.
 - **`Style`**: Code style changes (no functional changes).
 - **`Refactor`**: Refactor code (no new features, no fixes).
+- **`Chore`**:Sửa vặt. (build, config, cập nhật dependency,...).
 
 Example:
 
